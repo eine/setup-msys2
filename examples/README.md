@@ -24,3 +24,7 @@ there's a few changes:
   `MinGW Makefiles` (install `${{matrix.prefix}}-make`, the build uses
   `mingw32-make`) or `MSYS Makefiles` (install `make`, and the build uses
   the plain `make` command).
+
+## PKGBUILD
+
+[pkgbuild.yml](pkgbuild.yml) shows how to build and test a package using a PKGBUILD recipe.
