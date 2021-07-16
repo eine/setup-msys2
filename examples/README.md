@@ -1,5 +1,12 @@
 # Examples
 
+! TODO (from https://github.com/msys2/setup-msys2/pull/149#issuecomment-881567677)
+
+- Add a cmake recipe and a PKGBUILD recipe, then move the workflows to `.github/workflows` so that they are tested in CI.
+- Move guidelines about using CMake (below) to the MSYS2 documentation.
+- Explain how to use `cygwin -u` or `cygwin -w` for using GitHub variables in MSYS2, or for using MSYS2 packages from PowerShell.
+- Showcase how to generate the matrix programmatically, using a job with a `shell: python` step (see https://github.com/stnolting/neorv32/blob/master/.github/workflows/Implementation.yml#L19-L31).
+
 ## CMake
 
 [cmake.yml](cmake.yml) shows how to install the relevant toolchain package for each msystem choice.
