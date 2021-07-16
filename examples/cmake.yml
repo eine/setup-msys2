@@ -1,0 +1,41 @@
+name: Example CMake
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '0 0 * * 3'
+  workflow_dispatch:
+
+jobs:
+
+  build:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        include: [
+          { msystem: mingw64, prefix: mingw-w64-x86_64 },
+          { msystem: mingw32, prefix: mingw-w64-i686 },
+          { msystem: ucrt64,  prefix: mingw-w64-ucrt-x86_64 },
+          { msystem: clang64, prefix: mingw-w64-clang-x86_64 },
+        ]
+    name: ${{ matrix.msystem }} | ${{ matrix.prefix }}
+    defaults:
+      run:
+        shell: msys2 {0}
+    steps:
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: ${{matrix.msystem}}
+          update: true
+          install: >-
+            git
+            make
+            ${{matrix.prefix}}-toolchain
+            ${{matrix.prefix}}-cmake
+            ${{matrix.prefix}}-make
+            ${{matrix.prefix}}-ninja
+      - uses: actions/checkout@v2
+      - run: |
+          cmake -G Ninja -B build -DCMAKE_BUILD_TYPE=Release
+          cmake --build build
